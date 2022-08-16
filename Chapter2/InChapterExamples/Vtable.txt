@@ -1,0 +1,9 @@
+compiler at compile time sets up a Vtable for every class having virtual functions as well as the classes derived from the classes
+having virtual functions
+
+VTABLE contains the the entries that are functions pointers to the virtual functions that can be called by the objects of the classes.
+
+next entity is Vptr that that is a hidden pointer that compiler adds to the base class this vptr pointes to the vector table of that class
+ All the classes derived from this base class inherit the _vptr.
+
+ https://www.softwaretestinghelp.com/runtime-polymorphism-in-cpp/#:~:text=Runtime%20polymorphism%20is%20also%20known,to%20bind%20to%20the%20object.

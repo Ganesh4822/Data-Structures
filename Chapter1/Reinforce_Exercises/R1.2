@@ -1,0 +1,158 @@
+ Write a pseudo-code description of a method for finding the smallest and
+largest numbers in an array of integers and compare that to a C++ function
+that would do the same thing.
+
+=> 1)sort()
+2)arr[0] = smallest 
+3) arr[n-1] = largest
+
+method
+max = min = arr[0];
+for(int i = 1; i < n ; i++)
+{
+    if(min > arr[i])
+        min = arr[i]
+    else if(max < arr[i])
+        max = arr[i];
+}
+
+
+R-1.3 Give a C++ definition of a struct called Pair that consists of two members. The first is an integer called first, and the second is a double called
+second.
+
+struct an{
+    int first;
+    double second;
+}
+
+
+R-1.6 Consider the following attempt to allocate a 10-element array of pointers
+to doubles and initialize the associated double values to 0.0. Rewrite the
+following (incorrect) code to do this correctly. (Hint: Storage for the
+doubles needs to be allocated.)
+
+double *arr;
+
+arr = (double*)malloc(sizeof(double)*10);
+for(int i = 0 ; i< 10 ; i++)
+{
+    arr[i] = 0.00;
+}
+
+R-1.7 Write a short C++ function that takes an integer n and returns the sum of
+all the integers smaller than n.
+
+for(int i = 1 ; i < n-1 ; i++)
+    sum = sum + i;
+return sum;
+
+R-1.8 Write a short C++ function, isMultiple, that takes two positive long values,
+n and m, and returns true if and only if n is a multiple of m, that is, n = mi
+for some integer i.
+
+isMultiple(int m, int n)
+{
+    if(m % n == 0)
+        return true;
+}
+
+
+R-1.9 Write a C++ function printArray(A, m, n) that prints an m × n twodimensional array A of integers, declared to be “int** A,” to the standard
+output. Each of the m rows should appear on a separate line.
+
+int **arr;
+arr = 
+
+
+*************************************************
+int ret;
+[][ff]][][]
+*(unsigned char*)((char*)&ret + 1) = ff
+
+
+unsigned long long n = 0;
+
+for(int i =0 ; i< sizeof(n); i++)
+{
+
+}
+
+
+
+printf("After 1st assignment n = %llx\n",n);    
+
+*********************************************************
+
+    struct A
+    {
+        int a;
+        char b;
+        float c;
+
+    }12 bytes
+
+
+    int n;
+    float n1;
+    char n2;
+
+    ((int )&((struct A*)&n1 ->a)); 
+
+(llu)&((struct A*)&n1 ->a) - (llu)((struct A*)&n1);
+ 
+*****************************************************************
+
+struct A 
+{
+    int a; 
+    char b; 
+    float c; 
+}; 
+
+void ptr_and_type_casting_5(void)
+{
+    struct A inA1 = {10, 'A', 1.1f}, inA2 = {20, 'B', 2.2f}, inA3 = {30, 'C', 3.3}; 
+
+    f(&inA3.c); 
+    f(&inA1.c); 
+    f(&inA2.c); 
+}
+
+/* Precondition: It accepts the address of float member (named 'c') of one 
+                of the instances of of struct A 
+    Postcondition: Print all members of instance of struct A, whose member 'c' 
+                    address is in pf. 
+*/ 
+void f(float* pf)
+{
+    struct A* pa = (struct A*)((unsigned long long int)(&pf) - OFFSET_OFF(struct A,c));
+
+
+}
+
+R-1.11 Write a C++ class, Flower, that has three member variables of type string,
+int, and float, which respectively represent the name of the flower, its
+number of pedals, and price. Your class must include a constructor method
+that initializes each variable to an appropriate value, and your class should
+include functions for setting the value of each type, and getting the value
+of each type.
+
+class Flower
+{
+    private:
+        string name;
+        int pedals;
+        float price;
+    public:
+        Flower(string _name = "", int _pedals = 0, float _price = 0.0):name(_name),pedals(_pedals),price(_price)
+        {
+
+        }
+};
+
+
+
+
+
+}
+

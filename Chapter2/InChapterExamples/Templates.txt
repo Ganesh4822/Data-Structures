@@ -1,0 +1,17 @@
+int integerMIn(int a, int b)
+{
+    return(a > b ? b  : a);
+}
+
+computing the minimum of two variables of other types, such as long, short, float,
+and double. Each such function would require a different declaration and definition,
+however, and making many copies of the same function is an error-prone solution,
+especially for longer functions.
+
+function Template : 
+
+Template <Typename T>
+T genericMin(T a, T b)
+{
+    return (a < b ? a : b); 
+}

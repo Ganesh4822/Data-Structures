@@ -1,0 +1,191 @@
+R-2.1 What are some potential efficiency disadvantages of having very deep inheritance trees, that is, a large set of classes, A, B, C, and so on, such that
+B extends A, C extends B, D extends C, etc.?
+
+- while calling a method overridden in each class in the heiarchy the compiler will take more time to determine which method is called.
+----------------------------------------------------------------------------------------------------------------------------------
+R-2.2 What are some potential efficiency disadvantages of having very shallow
+inheritance trees, that is, a large set of classes, A, B, C, and so on, such
+that all of these classes extend a single class, Z?
+----------------------------------------------------------------------------------------------------------------------------------
+R-2.6 Draw a class inheritance diagram for the following set of classes.
+• Class Goat extends Object and adds a member variable tail and
+functions milk and jump.
+• Class Pig extends Object and adds a member variable nose and functions eat and wallow.
+• Class Horse extends Object and adds member variables height and
+color, and functions run and jump.
+• Class Racer extends Horse and adds a function race.
+• Class Equestrian extends Horse an
+--Done
+----------------------------------------------------------------------------------------------------------------------------------
+
+R-2.7 A derived class’s constructor explicitly invokes its base class’s constructor,
+but a derived class’s destructor cannot invoke its base class’s destructor.
+Why does this apparent asymmetry make sense?
+
+-- Since the base class pointer can store any derived object it is important that detructor of that object should be called.
+hence When writing a base class, we cannot know, in general, whether a derived class
+may need to implement a destructor. So, to be safe, when defining any virtual
+functions, it is recommended that a virtual destructor be defined as well.
+----------------------------------------------------------------------------------------------------------------------------------
+
+R-2.8 Give a short fragment of C++ code that uses the progression classes from
+Section 2.2.3 to find the 7th value of a Fibonacci progression that starts
+with 3 and 4 as its first two values.
+
+int main()
+{
+    progression* p1 = new FibonacciProgression(3,4);
+    for(int i = 0; i < 8 ; i++)
+    {
+        p1.nextValue();
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------
+R-2.9 If we choose inc = 128, how many calls to the nextValue function from
+the ArithProgression class of Section 2.2.3 can we make before we cause
+a long-integer overflow, assuming a 64-bit long integer?
+
+while(p1.nextValue() > 0)
+count ++;
+----------------------------------------------------------------------------------------------------------------------------------
+R-2.10 Suppose we have a variable p that is declared to be a pointer to an object
+of type Progression using the classes of Section 2.2.3. Suppose further
+that p actually points to an instance of the class GeomProgression that
+was created with the default constructor. If we cast p to a pointer of type
+Progression and call p->firstValue(), what will be returned? Why?
+
+firstValue is declared protected so we wont be able to call it with object.
+----------------------------------------------------------------------------------------------------------------------------------
+R-2.11 Consider the inheritance of classes from Exercise R-2.6, and let d be an
+object variable of type Horse. If d refers to an actual object of type Equestrian, 
+can it be cast to the class Racer? Why or why not?
+
+---No it cannot cast as the object will contain the Vptr pointing to vector table of the class of which the object is formed.
+
+----------------------------------------------------------------------------------------------------------------------------------
+R-2.12 Generalize the Person-Student class hierarchy to include classes Faculty,
+UndergraduateStudent, GraduateStudent, Professor, Instructor. Explain
+the inheritance structure of these classes, and derive some appropriate
+member variables for each class.
+
+class Person{
+
+};
+
+class student : Public Person
+{
+
+}
+
+class UndergraduateStudent: public Student{
+
+}
+
+class GraduateStudent: public Student{
+    
+}
+--------------------------------------------------------------------------------------
+R-2.13 Give an example of a C++ code fragment that performs an array reference
+that is possibly out of bounds, and if it is out of bounds, the program
+catches that exception and prints an appropriate error message.
+
+function Arraydereference 
+{
+    try
+    {
+        return a[i]
+    }catch(ArrayIndexOutOfBound exe)
+    {
+        std::cout<<"Exception "<<std::endl;
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------
+R-2.14 Consider the following code fragment:
+class Object
+{ public: virtual void printMe() = 0; };
+class Place : public Object
+{ public: virtual void printMe() { cout << "Buy it.\n"; } };
+class Region : public Place
+{ public: virtual void printMe() { cout << "Box it.\n"; } };
+class State : public Region
+{ public: virtual void printMe() { cout << "Ship it.\n"; } };
+class Maryland : public State
+{ public: virtual void printMe() { cout << "Read it.\n"; } };
+int main() {
+Region* mid = new State;
+State* md = new Maryland;
+Object* obj = new Place;
+Place* usa = new Region;
+md−>printMe();
+mid−>printMe();
+(dynamic cast<Place*>(obj))−>printMe();
+obj = md;
+(dynamic cast<Maryland*>(obj))−>printMe();
+obj = usa;
+(dynamic cast<Place*>(obj))−>printMe();
+usa = md;
+(dynamic cast<Place*>(usa))−>printMe();
+return EXIT SUCCESS;
+}
+What is the output from calling the main function of the Maryland class?
+
+Output - 
+Read it.
+Ship it.
+Buy it.
+Read it.
+Box it.
+Read it.
+
+___________________________________________________________________________________________________________________
+
+R-2.15 Write a short C++ function that counts the number of vowels in a given
+character string.
+
+int CountVowals(char* a)
+{   int count;
+    if(a == 'a' || a == 'e' || a == 'u' || a == 'o' || a == 'u')
+    {
+        count+++;
+    }
+    return count;
+}
+
+___________________________________________________________________________________________________________________
+
+R-2.16 Write a short C++ function that removes all the punctuation from a string s
+storing a sentence. For example, this operation would transform the string
+"Let’s try, Mike." to "Lets try Mike"
+
+--Done
+
+___________________________________________________________________________________________________________________
+
+R-2.17 Write a short program that takes as input three integers, a, b, and c, and
+determines if they can be used in a correct arithmetic formula (in the given
+order), like “a+b = c,” “a = b−c,” or “a ∗ b = c.”
+
+bool a(int a, int b, int c)
+{
+    if(a + b == c)
+    {
+        if(a == (b -c))
+        {
+            if((a * b) == c)
+            {
+                return True;
+            }
+        }
+    }
+
+    return false;
+
+}
+
+___________________________________________________________________________________________________________________
+
+R-2.18 Write a short C++ program that creates a Pair class that can store two
+objects declared as generic types. Demonstrate this program by creating
+and printing Pair objects that contain five different kinds of pairs, such as
+<int,string> and <float,long>.

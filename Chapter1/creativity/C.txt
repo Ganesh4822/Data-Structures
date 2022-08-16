@@ -1,0 +1,121 @@
+C-1.1 Write a pseudo-code description of a method that reverses an array of n
+integers, so that the numbers are listed in the opposite order than they were
+before, and compare this method to an equivalent C++ method for doing
+the same thing.
+
+reverse(int* arr, int n)
+{
+    swap(i, (n-1) -i);
+}
+
+
+void shellSort(double* array, int n) {
+ 
+  for (int interval = n / 2; interval > 0; interval /= 2) {
+    for (int i = interval; i < n; i += 1) {
+      int temp = array[i];
+      int j;
+      for (j = i; j >= interval && array[j - interval] > temp; j -= interval) {
+        array[j] = array[j - interval];
+      }
+      array[j] = temp;
+    }
+  }
+}
+int eliminateMaximum(int* dist, int distSize, int* speed, int speedSize){
+    int count;
+    count = 0;
+    double* arr = (double*)malloc(sizeof(double)*distSize);
+    int i;
+    for(i = 0 ; i < distSize ; i++)
+    {
+
+        
+        arr[i] = (double)dist[i]/speed[i];
+    }
+   shellSort(arr,distSize);
+    for(i = 0; i< distSize; i++)
+    {
+        printf("%lf\t",arr[i]);
+    }
+   
+    for(i = 0 ; i < distSize  ; i++ )
+    {
+        if(arr[i] >0 && i == 0)
+        {
+            count++;
+            for(int j = 0 ; j< distSize ; j++)
+            {
+                arr[j] -= 1;
+                
+            }
+        }
+        else if(arr[i] >= 1)
+        {
+            count++;
+            for(int j = 0 ; j< distSize ; j++)
+            {
+                arr[j] -= 1;
+                
+            }
+        }
+        else{
+            return count;
+        }
+    
+    }
+    
+    return count;
+}
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2){
+    
+    struct ListNode* current,p_list;
+    struct ListNode* head_node = (struct ListNode*)malloc(sizeof(struct ListNode));
+    head_node->val = 0;
+    head_node ->next = NULL;
+    current = head_node;
+    int x,y,sum;
+    int carry = 0;
+    while(l1 != NULL || l2 != NULL || carry)
+    {
+        if(l1 != NULL)
+        {
+           x = l1->val;
+            l1= l1->next;
+        }
+        
+        if(l2 != NULL)
+        {
+            y=l2->val;
+            l2 = l2->next;
+        }
+        
+        sum = x + y + carry;
+        carry = sum / 10;
+        struct ListNode* node = (struct ListNode*)malloc(sizeof(struct ListNode));
+        if(node!= NULL)
+        {
+            node->val = sum % 10; 
+            node->next = NULL;
+        }
+        current->next = node;
+        current = current->next;
+        
+        
+    }
+    
+    return head_node->next;
+
+}
