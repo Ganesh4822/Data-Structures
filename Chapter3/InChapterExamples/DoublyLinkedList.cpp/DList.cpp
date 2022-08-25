@@ -1,8 +1,6 @@
 #include<iostream>
 #include<cstdio>
 #include "DList.h"
-//ERRORS in THE IMPLEMENTATION
-//IMPLEMNT ALL METHODS CONSIDERING TAIL NODE.
 
 //Defination of Helper Routines
 void DLinkedList::AddNode(DNode* start, DNode* nodeToAdd, DNode* end)
@@ -33,7 +31,7 @@ DNode* DLinkedList::getNode(int _data)
 DNode* DLinkedList::searchNode(int sData)
 {
     DNode* node;
-    for(node = head->next; node->next != NULL; node = node->next)
+    for(node = head->next; node->next != tail; node = node->next)
     {
         if(node->data == sData)
         {
@@ -62,19 +60,20 @@ DLinkedList::~DLinkedList()
     DNode* node;
     DNode* temp;
     node = head->next;
-    while(node->next != NULL)
+    while(node->next != tail)
     {
         temp = node;
         delete(node);
         node = temp->next;
     }
     delete(head);
+    delete(tail);
 
 }
 
 bool DLinkedList::isempty()
 {
-    return(head->next == NULL);
+    return(head->next == tail);
 }
 
 const int DLinkedList::GetFront() const
@@ -86,7 +85,7 @@ const int DLinkedList::GetFront() const
 const int DLinkedList::GetBack() const
 {
     DNode* node = head->next;
-    while(node->next != NULL){
+    while(node->next != tail){
         node = node->next;
     }
     return(node->data);
@@ -107,11 +106,10 @@ void DLinkedList::InsertEnd(int data)
 {
     DNode* node = getNode(data);
     DNode* temp = head->next;
-    while(temp->next != NULL){
+    while(temp->next != tail){
         temp = temp->next;
     }
-    temp->next = node;
-    node->prev = temp;
+    AddNode(temp,node,temp->next);
 
 }
 
@@ -125,20 +123,32 @@ int DLinkedList::PopStart()
 int DLinkedList::PopEnd()
 {
     DNode* temp = head->next;
-    while(temp->next != NULL){
+    while(temp->next != tail){
         temp = temp->next;
     }
     int Pdata = temp->data;
     RemoveNode(temp);
     return Pdata;
 }
-// void AddAfter(int newData,int afterData);
+
+void DLinkedList::AddAfter(int newData,int afterData)
+{
+   DNode* node = getNode(newData);
+   DNode* prevNode = searchNode(afterData);
+   if(prevNode == NULL)
+   {
+     std::runtime_error("Node doesn't exist");
+   }
+   AddNode(prevNode,node,prevNode->next);
+
+}
+
 void DLinkedList::ShowList() const
 {
     
 	printf("[START<->]");
 	for(DNode* p_run = this->head->next;
-		p_run != NULL;
+		p_run != tail;
 		p_run  = p_run->next)
 		printf("[%d]<->",p_run->data);
 	printf("[END]");
