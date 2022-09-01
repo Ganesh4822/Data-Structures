@@ -1,0 +1,74 @@
+/*
+R-3.2 Suppose that two entries of an array A are equal to each other. After running the insertion-sort algorithm of Code Fragment 3.7, will they appear
+in the same relative order in the final sorted order or in reverse order?
+Explain your answer.
+*/
+
+void insertion_sort(T* arr, int n)
+{
+    int i,j;
+    T current;
+    for ( i = 1; i<n ; i++)
+    {
+        current = arr[i];
+        j = i -1;
+        while((j >= 0) && (arr[j] > current))
+        {
+            arr[j + 1]  = arr[j];
+            j--;
+        }
+        arr[j + 1] = current;
+    }
+}
+
+6,4,4,2,2,7,9
+
+first iteration - 
+ i =1 j = 0
+ current = 4
+ j >=0 && a[0] > a[1] = 6 > 4 = true
+a[1] = a[0];
+
+array = 6,6,4,2,2,7,9
+a[i] = 4
+array = 4,6,4,2,2,7,9
+
+j=-1
+2) Second i iteration 
+i = 2 j = 1
+current  = a[2] = 4
+while(1 >= 0 && a[1] > a[2]) : 6 > 4 true
+a[2] = a[1]
+j = 0
+array = 4,6,6,2,2,7,9
+while(0 >=0 && a[0] > 4 ) : false
+array[1] = 4
+4,4,6,2,2,7,9
+
+3)third I iteration
+i = 3 ; j = 2
+current  = a[3] = 2;
+while(2 > = 0 && a[2] > 2  (6 > 2)) true
+a[3]  = a[2]
+4,4,6,6,2,7,9
+j-- ;
+j = 1;
+while(1>= 0 && a[1] > 2 (4 > 2)) true
+a[2] = a[1]
+4,4,4,6,2,7,9
+j -- 
+j = 0
+while(0 > =0 && a[0 ]> 2 (4>2))
+a[1]  = a[0]
+4,4,4,6,2,7,9
+j-- 
+j = -1
+while(false)
+
+a[0] = current
+2,4,4,6,2,7,9
+
+Hence they stay in there relative order
+
+
+
