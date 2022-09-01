@@ -85,7 +85,7 @@ GameEntry& Scores::remove(int i) throw(std::runtime_error)
 
 
 int main()
-{
+{ 
     
 }
 
