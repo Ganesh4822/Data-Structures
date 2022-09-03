@@ -43,7 +43,7 @@ SinglyLinkedList::~SinglyLinkedList()
     node = HeadNode->next;
     while(node != NULL)
     {
-        temp = node;
+        temp = node->next;
         delete(node);
         node = temp->next;
     }
