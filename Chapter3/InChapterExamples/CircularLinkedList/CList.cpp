@@ -73,4 +73,5 @@ void CicularList::remove()
     else{
         cursor->next = delete_node;
     }
+    
 }
