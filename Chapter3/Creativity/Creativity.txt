@@ -1,0 +1,40 @@
+C-3.3 Let A be an array of size n ≥ 2 containing integers from 1 to n−1, inclusive, with exactly one repeated. Describe a fast algorithm for finding the
+integer in A that is repeated.
+
+1)There are various approches to find the repeted element.
+
+First Approach (Naive Approach)
+-
+running two for loops and comparing elements if there is any duplicate.
+
+Second Approach - 
+
+sorting the Array and Checking if two adjecent elements are equal.
+
+Third Approach - 
+
+Iterate through the array and put the element in Hashset. if the elemnt is Already in the hash set 
+return that element.
+
+Fourth approach - 
+
+Iterate through the array 
+1) put the arr[arr[i]] to negative .
+2) if the value is positive make it negative if it is negative return the element.
+
+---------------------------------------------------------------------------------------
+
+C-3.7 Describe a fast recursive algorithm for reversing a singly linked list L, so
+that the ordering of the nodes becomes opposite of what it was before.
+
+
+Node * i,j,k;
+
+i = head;
+j = head->next;
+k = head->next->next;
+
+j->next = i;
+i = j;
+j = k;
+k = k->next;
