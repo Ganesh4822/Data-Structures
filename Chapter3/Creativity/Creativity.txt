@@ -27,14 +27,84 @@ Iterate through the array
 C-3.7 Describe a fast recursive algorithm for reversing a singly linked list L, so
 that the ordering of the nodes becomes opposite of what it was before.
 
+ListNode* reverseList(ListNode* head) {
+        if(head == NULL)
+            return NULL;
+        if(head->next ==NULL)
+            return head;
+        ListNode *i,*j,*k;
+        i = head;
+        j = head->next;
+        if(head->next->next == NULL)
+        {
+             i->next = NULL;
+            j->next = i;
+            return j;
+        }    
+        k = head->next->next;
+        i->next = NULL;
+        j->next = i;
+        i = j;
+        j = k;
+        k = k->next;
+        while(k!= NULL)
+        {
+            j ->next = i;
+            i = j;
+            j = k;
+            k = k->next;
+        }
+     
+        j->next = i;
+        return j;
+        
+    }
 
-Node * i,j,k;
+    -------------------------------------------------------------------------------------------
+C-3.8 Describe a good algorithm for concatenating two singly linked lists L and
+M, with header sentinels, into a single list L′
+that contains all the nodes of
+L followed by all the nodes of M.
 
-i = head;
-j = head->next;
-k = head->next->next;
 
-j->next = i;
-i = j;
-j = k;
-k = k->next;
+Iteration to the last node of list one 
+
+lastofListone -> next = head2;
+
+return head1;
+
+------------------------------------------------------------------------------------------------
+
+C-3.9 Give a fast algorithm for concatenating two doubly linked lists L and M,
+with header and trailer sentinel nodes, into a single list L
+
+concatinationofList(DList* head1 , DList* head2)
+{   
+    Dlist* Iter = head1;
+    while(Iter!= NULL)
+    {
+        iter = iter->next;
+    }
+
+    iter->prev->next = head2->next;
+    head2->next->prev = iter->prev;
+    iter->prev = NULL;
+    head2->next = NULL;
+    delete(iter);
+    delete(head2);
+    return head1;
+}
+
+-----------------------------------------------------------------------------------------------------
+
+C-3.10 Describe in detail how to swap two nodes x and y (and not just their contents) in a singly linked list L given references only to x and y. Repeat
+this exercise for the case when L is a doubly linked list. Which algorithm
+takes more time?
+For Singly linked list
+swap(List& x, List& y)
+{
+    node* temp = x.next;
+    iterarate to the prev element of x and y 
+    store them in xprev and yprev;
+
+}
