@@ -106,5 +106,62 @@ swap(List& x, List& y)
     node* temp = x.next;
     iterarate to the prev element of x and y 
     store them in xprev and yprev;
+    
+    xprev->next = y;
+    yprev->next = x;
 
+    x.next = y.next;
+    y.next = temp;
 }
+
+For Doubly linked list we will not have to iterate to the previous element of the nodes to be swapped
+
+swap(DList& x, DList& y)
+{
+    node* temp = x.next;
+
+
+    x.prev.next = y;
+    y.prev.next = x;
+    x.next = y.next;
+    y.next = temp;
+}
+
+-----------------------------------------------------------------------------------------------------
+
+C-3.11 Describe in detail an algorithm for reversing a singly linked list L using
+only a constant amount of additional space and not using any recursion.
+
+List* Reverse(List* head)
+{
+    if(head == NULL)
+        return NULL;
+    if(head->next == NULL)
+        return head;
+    List* i,j ,k ;
+    i = head;
+    j = head->next;
+
+    if(head->next->next != NULL)
+    {
+        i ->next = NULL;
+        j->next = i;
+        return j;
+    }
+    k = head->next->next;
+    i->next = next;
+    j->next = i;
+    i = j;
+    j = k;
+    k = k->next;
+    while(k!= NULL)
+    {
+        j->next = i;
+        i = j;
+        j = k;
+        k = k->next;
+    }
+    j->next = i;
+    return j;
+}
+
