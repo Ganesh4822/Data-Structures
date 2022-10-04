@@ -165,3 +165,25 @@ List* Reverse(List* head)
     return j;
 }
 
+
+----------------------------------------
+C-3.14 Describe a recursive algorithm that counts the number of nodes in a singly
+linked list
+
+algorithm
+void (List* head, int * count)
+{
+    if(head->next != NULL)
+    {
+        (*count++);
+        Size(head->next, count);
+        return;
+
+    }
+    else{
+        (*count)++;
+    }
+}
+
+Also Implemented in Reinforcement exercise recursiveSinglyLinkedList.
+
