@@ -28,7 +28,7 @@ class my_vector
         memset((void*)p_arr,0,_size*sizeof(int));
     }
 
-    my_vector(size_type _size, int element):p_arr(new int[_size])
+    my_vector(size_type _size, int element):size(_size),p_arr(new int[_size])
     {
         for(int i = 0 ; i < _size; i++)
         {
@@ -51,6 +51,11 @@ class my_vector
     ~my_vector()
     {
         delete[] p_arr;
+    }
+
+    int getsize()
+    {
+        return size;
     }
 
     class Iterator
@@ -157,4 +162,33 @@ class my_vector
 
         return Iterator(iter_index + p_arr);
     }
+
+    Iterator erase(Iterator iter)
+    {
+        std::size_t iter_index = iter.p - p_arr;     
+    }
+
+    void clear()
+    {
+        delete[] p_arr;
+        p_arr = 0;
+        size = 0;
+    }
+    
+
 };
+
+
+int main()
+{
+    my_vector v(10,30);
+    std::cout<<"By Index"<<std::endl;
+    std::cout<<v.getsize()<<std::endl;
+    for(my_vector::size_type i = 0; i < v.getsize(); ++i)
+        std::cout << "v[" << i << "]:" << v[i] << std::endl; 
+
+    std::cout<<"By Iterator"<<std::endl;
+    for(my_vector::Iterator iter = v.begin(); iter != v.end(); ++iter)
+        std::cout<<"*iter = "<<*iter<<std::endl;
+    
+}
