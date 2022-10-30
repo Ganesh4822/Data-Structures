@@ -26,6 +26,11 @@ ArrayVector::ArrayVector():capacity(0),n(0),A(nullptr)
 
 }
 
+ArrayVector::~ArrayVector()
+{
+    delete[] A;
+}
+
 int ArrayVector::size() const
 {
     return n;
