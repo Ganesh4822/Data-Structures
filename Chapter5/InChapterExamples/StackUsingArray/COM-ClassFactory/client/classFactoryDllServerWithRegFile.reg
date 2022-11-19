@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\CLSID\{D5B55525-DB58-434B-A3EA-B24471C909AE}]
+@="COMDLL"
+[HKEY_CLASSES_ROOT\CLSID\{D5B55525-DB58-434B-A3EA-B24471C909AE}\InprocServer32]
+@="C:\\Windows\\System32\\StackServerDllServerRegFile.dll"

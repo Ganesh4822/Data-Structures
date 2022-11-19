@@ -1,0 +1,5 @@
+LIBRARY StackServerDllServerRegFile.dll
+EXPORTS
+        DllGetClassObject  PRIVATE
+        DllCanUnloadNow    PRIVATE
+        

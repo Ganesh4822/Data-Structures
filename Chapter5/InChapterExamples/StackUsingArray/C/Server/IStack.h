@@ -13,5 +13,11 @@ typedef struct InterfaceForStack
      //InterfaceForStack* ReturnObject(int);
 }IStack;
 
-IStack* ReturnObject(int);
 
+
+// struct dummy 
+// {
+//      void* ptr;
+// };
+
+//struct dummy* ReturnObject(int);
