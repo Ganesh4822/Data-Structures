@@ -34,4 +34,15 @@ class my_string
              strncpy_s(buf,size+1, other_obj.buf,size);
              return *this;
         }
+
+        my_string& operator+(const my_string& other)
+        {
+            my_string new_string;
+            new_string.size = this->size + other.size;
+            new_string.buf  = new char[new_string.size + 1];
+            strncpy_s(new_string.buf , this->size +1, this->buf , this->size);
+            strncpy_s(new_string.buf + this->size , other.size + 1, other.buf, other.size);
+            return new_string;
+
+        }
 };

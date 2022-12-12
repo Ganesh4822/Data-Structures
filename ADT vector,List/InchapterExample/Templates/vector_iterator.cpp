@@ -52,13 +52,6 @@ class my_vector
             delete p_arr;
         }
 
-        void push_back(int new_element)
-        {
-            size += 1; 
-            p_arr = (int*)realloc(p_arr, (size)*sizeof(int)); 
-            p_arr[size-1] = new_element; 
-        }
-
         class Iterator
         {
             friend class my_vector;
@@ -108,7 +101,33 @@ class my_vector
                 }
 
 
+
+
         };
+
+         void push_back(int new_element)
+        {
+            size += 1; 
+            p_arr = (int*)realloc(p_arr, (size)*sizeof(int)); 
+            p_arr[size-1] = new_element; 
+        }
+
+        int pop_back()
+        {
+            int ret = p_arr[size -1];
+            size -= 1;
+            p_arr = (int*)realloc(p_arr, (size)*sizeof(int));
+            return ret;
+        }
+
+        Iterator insert(Iterator Iter, int n , int val)
+        {
+            int old_size = size;
+            size = size + n;
+
+        
+
+        }
 
         Iterator begin()
         {
