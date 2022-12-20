@@ -4,6 +4,8 @@ run. Such a program is called a quine.
 */
 
 #include<stdio.h>
-main(void)
-{const char* s =  "#include<stdio.h>%cmain(void) {const char* s = %c%s%c;%cprintf(s,10,34,s,34,10);}";
-printf(s,10,34,s,34,10);}
+int main()
+{
+    const char* s = "#include<stdio.h%cint main(void)%c{%cconst char* s = %c%s%c;%cprintf(s,10,34,s,10,34)%c}";
+    printf(s,10,10,10,34,s,10,34,10);
+}

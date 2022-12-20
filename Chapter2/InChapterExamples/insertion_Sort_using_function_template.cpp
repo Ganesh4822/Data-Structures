@@ -15,7 +15,6 @@ void insertion_sort(T* a, size_t N)
             a[i+1] = a[i]; 
             i = i - 1; 
         }
-
         a[i+1] = key; 
     }
 }

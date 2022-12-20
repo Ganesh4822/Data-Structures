@@ -24,7 +24,7 @@ int main()
     vector* vec = createVector();
 
     int i;
-    for( i = 0 ; i  < 100000 ; i++)
+    for( i = 0 ; i  < 10000000 ; i++)
     {
         char* rands = randstring(10);
         pushBack(vec, rands);
