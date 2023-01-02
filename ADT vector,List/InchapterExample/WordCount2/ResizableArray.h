@@ -3,6 +3,11 @@
 #include<stdlib.h>
 #include<string.h>
 
+typedef long long ssize_t;
+//#defines
+#define MaxWordSize 50
+
+//Structs 
 typedef struct structWord
 {
     char* word;
@@ -16,6 +21,15 @@ typedef struct vector
     size_t size;
 }vector;
 
+/*
+@input:     Node
+
+@output:    Address of newly allocated instance of 
+                struct vector
+
+To Allocate New Instance of string vector 
+*/
+
 vector* createVector()
 {
     vector* WordVec = (vector*)malloc(sizeof(vector));
@@ -25,20 +39,35 @@ vector* createVector()
     return WordVec;
 }
 
+/*
+@input:     Address of the  pointer to the vector Instance user wants to delete.
 
-void DestroyVector(vector* vecobj)
+@output:    None
+
+Delete the memory allocated to the Vector instance
+*/
+
+void DestroyVector(vector** vecobj)
 {
     size_t i =0 ;
-    for(i = 0 ; i < vecobj->size ; i++)
+    for(i = 0 ; i < (*vecobj)->size ; i++)
     {
-        free(vecobj->pp[i]->word);
-        free(vecobj->pp[i]);
+        free((*vecobj)->pp[i]->word);
+        free((*vecobj)->pp[i]);
     }
-    free(vecobj->pp);
-    free(vecobj);
-    vecobj= NULL;
+    free((*vecobj)->pp);
+    free((*vecobj));
+    *vecobj= NULL;
 }
 
+/*
+@input-1 : Address of the vector instance
+
+@input-2 : Address of the structWord user wants to push to the vector. 
+
+@output : None
+
+*/
 void pushBack(vector* vec, structWord* obj)
 {
     vec->pp = (structWord**)realloc(vec->pp,(vec->size + 1) * sizeof(structWord*));
@@ -53,7 +82,14 @@ void pushBack(vector* vec, structWord* obj)
     vec->pp[vec->size - 1] = obj;
 }
 
+/*
+@input-1 : Address of the Vector instance.
 
+@input-2 : string user wants to searc in the vector.
+
+@output : Count of the word in the vector.
+
+*/
 size_t searchWordcount(vector* vec , char* word)
 {
     int i;
@@ -67,7 +103,14 @@ size_t searchWordcount(vector* vec , char* word)
     return 0;
 }
 
-size_t searchWord(vector* vec , char* word)
+/*
+@input-1 : Address of the vector instance.
+
+@input-2 : string user wants to searc in the vector.
+
+@output : pointer to the StructWord instance which has the searchTerm.
+*/
+structWord* searchWord(vector* vec , char* word)
 {
     size_t i ;
     size_t count = 0;
@@ -75,10 +118,22 @@ size_t searchWord(vector* vec , char* word)
     for(i = 0 ; i < vec->size ; i++)
     {
         if(strcmp(vec->pp[i]->word, word) == 0)
-            count++;
+            return vec->pp[i];
     }
-    return count;
+    return NULL;
 }
+
+/*
+@input-1 : Address of the vector instance.
+
+@input-2 : String user wants to insert in vector.
+
+@input-3 : LineNumber 
+
+@output : None
+
+creates the structword instance and adds the structword to vector.
+*/
 void pushBackVersionV2(vector* vec, char* word, int LineNumber)
 {
     structWord* wordv = (structWord*)malloc(sizeof(structWord));
@@ -102,20 +157,79 @@ void pushBackVersionV2(vector* vec, char* word, int LineNumber)
 
     wordv->word_number = count+1;
     wordv->line_number = LineNumber;
-
+    
     vec->pp = (structWord**)realloc(vec->pp,(vec->size + 1) * sizeof(structWord*));
-
+    
     if(vec->pp == NULL)
     {
         fprintf(stderr, "realloc():fatal:out of memory\n"); 
         exit(EXIT_FAILURE);
     }
 
-    vec->size = vec->size++;
+    vec->size = vec->size + 1;
     vec->pp[vec->size - 1] = wordv;
 
 }
 
+/*
+@input-1 : pointer to the vector instance.
+
+@input-2 : string which user wants to store in the vector.
+
+@input-3 : LineNumber 
+
+@output : None
+
+checks if the word is already present in the vector 
+if present increments the wordcount.
+if not present add the vector to the vector.
+*/
+void pushBackVersionV3(vector* vec, char* word, int LineNumber)
+{
+   structWord* pWord = searchWord(vec, word);
+   if(pWord == NULL)
+   {
+       pWord = (structWord*)malloc(sizeof(structWord));
+       if(pWord == NULL)
+        {
+            fprintf(stderr, "malloc():fatal:out of memory:pushBackV3\n"); 
+            exit(EXIT_FAILURE); 
+        }
+
+        pWord->word = (char*)malloc(strlen(word));
+        if(pWord->word == NULL)
+        {
+            fprintf(stderr, "malloc():fatal:out of memory:pushBackV3\n"); 
+            exit(EXIT_FAILURE); 
+        }
+        
+        strcpy(pWord->word, word);
+        pWord->word_number = 1;
+        pWord->line_number = LineNumber;
+
+        vec->pp = (structWord**)realloc(vec->pp,(vec->size+1)*sizeof(structWord*));
+        if(vec->pp == NULL)
+        {
+            fprintf(stderr, "realloc():fatal:out of memory\n"); 
+            exit(EXIT_FAILURE);
+        }
+
+        vec->size = vec->size + 1;
+        //*(vec->pp + (vec->size -1)) = wordv;
+        vec->pp[vec->size - 1] = pWord;
+   }
+    else {
+        pWord->word_number = pWord->word_number + 1;   
+    }
+}
+
+/*
+@input-1 : Address of the vector instance.
+
+@output : None
+
+Prints the Word , WordCount , LineNumber
+*/
 void ShowVector(vector* vec)
 {
     size_t i ;
@@ -127,5 +241,54 @@ void ShowVector(vector* vec)
     }
 }
 
+/*
+@input-1 : Address of the the vector instance
 
+@output : Size of the Vector.
+*/
+ssize_t getSize(vector* vec)
+{   
+    return vec->size;
+}
+
+/*
+@input-1 : pointer to the Vector instance.
+
+@input-2 : address of the File.
+
+@output : None
+
+Reads the file character by charactor and Adds the words into the 
+vector using helper routine PushBackVersionV3.
+*/
+void ReadFileAndFillVector(vector* vec,FILE* fp)
+{
+    int i , j;
+    char c;
+    size_t LineNumber = 0;
+    char* buffer = (char*)malloc(sizeof(char)*MaxWordSize);
+    while(fscanf(fp,"%c",&c) != EOF)
+    {
+        if(c == ' ' || c == '.' || c == ',' || c == 47 || c == '-')
+        {
+            pushBackVersionV3(vec,buffer,LineNumber);
+            j = 0;
+            memset(buffer,0,MaxWordSize*sizeof(char));
+        }
+        else if(c == '\n')
+        {
+            LineNumber++;
+            pushBackVersionV3(vec,buffer,LineNumber);
+            j = 0;
+            memset(buffer,0,MaxWordSize*sizeof(char));
+        }
+        else
+        {
+            buffer[j] = c;
+            ++j;    
+        }
+
+    }
+    free(buffer);
+}
 
